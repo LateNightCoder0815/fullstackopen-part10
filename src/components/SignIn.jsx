@@ -7,15 +7,16 @@ import useSignIn from '../hooks/useSignIn';
 import { useHistory } from "react-router-native";
 
 
-const SignInForm = ({ onSubmit }) => {
+export const SignInForm = ({ onSubmit }) => {
   return (
     <View style={{ backgroundColor: "white" }}>
       <View style={{ margin: 15 }}>
-        <FormikTextInput name="username" placeholder="Username" />
-        <FormikTextInput name="password" placeholder="Password" secureTextEntry={true} />
+        <FormikTextInput name="username" placeholder="Username" testID='usernameField'/>
+        <FormikTextInput name="password" placeholder="Password" secureTextEntry={true} testID='passwordField'/>
         <Button
           title="Sign in"
           onPress={onSubmit}
+          testID="submitButton"
           style={{margin: 10, padding: 10}}
         />
       </View>

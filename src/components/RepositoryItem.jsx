@@ -1,7 +1,9 @@
 import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, Button } from 'react-native';
 import Text from './Text';
 import theme from '../theme';
+import * as Linking from 'expo-linking';
+
 
 const formatNumber = (num) => {
     if (num >= 1000) {
@@ -50,14 +52,15 @@ const styles = StyleSheet.create({
     }
   });
 
-const StatsTab = ({text,number}) => (
+const StatsTab = ({text,number,testID}) => (
     <View style={styles.tabStats}>
-        <Text fontWeight="bold">{formatNumber(number)}</Text> 
+        <Text testID={testID} fontWeight="bold">{formatNumber(number)}</Text> 
         <Text>{text}</Text>
     </View>
 );
 
-const RepositoryItem = ({ item }) => (
+const RepositoryItem = ({ item }) => {
+    return(
     <View style = {{ backgroundColor: "white" }}>
         <View style={styles.container}>
             <View style={styles.tab}>
@@ -67,20 +70,21 @@ const RepositoryItem = ({ item }) => (
                 />
             </View>
             <View style={styles.tab}>
-                <Text fontWeight="bold">{item.fullName}</Text>
-                <Text>{item.description}</Text>
+                <Text fontWeight="bold" testID="fullName">{item.fullName}</Text>
+                <Text testID="description">{item.description}</Text>
                 <View style={{display: "flex", flexDirection: "row"}}>
-                    <Text color="white" fontWeight="bold" style={styles.languageLogo}>{item.language}</Text>
+                    <Text color="white" fontWeight="bold" style={styles.languageLogo} testID="language">{item.language}</Text>
                 </View>   
             </View>
         </View>
         <View style={styles.containerStats}>
-            <StatsTab text="Stars" number={item.stargazersCount}/>
-            <StatsTab text="Forks" number={item.forksCount}/>
-            <StatsTab text="Reviews" number={item.reviewCount}/>
-            <StatsTab text="Rating" number={item.ratingAverage}/>
+            <StatsTab text="Stars" testID="stargazersCount" number={item.stargazersCount}/>
+            <StatsTab text="Forks" testID="forksCount" number={item.forksCount}/>
+            <StatsTab text="Reviews" testID="reviewCount" number={item.reviewCount}/>
+            <StatsTab text="Rating" testID="ratingAverage" number={item.ratingAverage}/>
         </View>
+        {item.singleView ? <Button onPress={()=> Linking.openURL(item.url)} title='Open in GitHub' /> : <></>}
     </View>
-);
+);};
 
 export default RepositoryItem;

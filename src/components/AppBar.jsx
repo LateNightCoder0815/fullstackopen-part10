@@ -33,11 +33,9 @@ const AppBarTab = ({ text, url, show }) => {
 );};
 
 const AppBar = () => {
-    const { data } = useQuery(GET_AUTHORIZEDUSER,{
-        fetchPolicy: 'cache-and-network',
-        });
+    const { data } = useQuery(GET_AUTHORIZEDUSER);
     const loggedIn = data && data.authorizedUser;
-    
+
     return (<View style={styles.container}>
             <ScrollView horizontal >
                 <AppBarTab text="Repositories" url="/" show="true"/>
