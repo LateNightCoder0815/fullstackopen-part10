@@ -7,3 +7,20 @@ mutation Authorize($input: AuthorizeInput) {
     }
 }
 `;
+
+export const CREATEREVIEW = gql`
+mutation CreateReview($input: CreateReviewInput){
+  createReview(review: $input){
+    repositoryId
+  }
+}
+`;
+
+export const CREATEUSER = gql`
+mutation CreateUser($input: CreateUserInput){
+  createUser(user: $input){
+    id
+		username
+  }
+}
+`;
