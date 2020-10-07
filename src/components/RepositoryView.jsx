@@ -82,11 +82,15 @@ const ItemSeparator = () => <View style={styles.separator} />;
 
 const RepositoryView = () => {
   const { id } = useParams();
-  const { repositories } = useRepository( id );
+  const { repositories, fetchMore } = useRepository( id );
 
   if (repositories === undefined){return(<></>);}
 
   repositories.singleView = true;
+
+  const onEndReach = () => {
+    fetchMore();
+  };
 
   return(
     
@@ -94,8 +98,10 @@ const RepositoryView = () => {
       data={repositories.reviews.edges}
       renderItem={({ item }) => <ReviewItem review={item} />}
       keyExtractor={item => item.id}
-      ListHeaderComponent={() => <RepositoryItem item = {repositories}/>}
+      ListHeaderComponent={() => <RepositoryItem item = {repositories} />}
       ItemSeparatorComponent={ItemSeparator}
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
     />
   );
 };
