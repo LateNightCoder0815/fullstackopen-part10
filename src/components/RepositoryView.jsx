@@ -4,8 +4,7 @@ import useRepository from '../hooks/useRepository';
 import { useParams } from "react-router-native";
 import { FlatList, View, StyleSheet } from 'react-native';
 import theme from '../theme';
-import Text from './Text';
-import { format } from 'date-fns';
+import ReviewItem from './ReviewItem';
 
 const styles = StyleSheet.create({
   separator: {
@@ -53,30 +52,6 @@ const styles = StyleSheet.create({
       borderRadius: 10
   }
 });
-
-const ReviewItem = ({ review }) => {
-
-  const dateFormatter = (date) => {
-    return(format(new Date(date),'dd.MM.yyyy'));
-  };
-
-  return(
-    <View style = {{ backgroundColor: "white" }}>
-      <View style={styles.container}>
-          <View style={styles.tab}>
-            <View style={styles.ratingContainer}>
-              <Text fontWeight="bold" color="primary">{review.node.rating}</Text>
-            </View>
-          </View>
-          <View style={styles.tab}>
-              <Text fontWeight="bold" >{review.node.user.username}</Text>
-              <Text>{dateFormatter(review.node.createdAt)}</Text>
-              <Text>{review.node.text}</Text>
-          </View>
-      </View>
-    </View>
-  );
-};
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
